@@ -1,24 +1,12 @@
-# README
+# Minimum Viable Product - CHEFIT!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The agreed scope forthe MVP is:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Basic homepage
+* Chef administration
+* Ingredients administration
+* Receipes administration
+* Real-time comments & likes for receipes
+* User management & user profile
+* Chatroom
+* Search feature
