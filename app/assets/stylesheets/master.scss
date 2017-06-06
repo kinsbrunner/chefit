@@ -1,0 +1,34 @@
+@import "bootstrap";
+
+.center {
+  text-align: center;
+}
+
+.jumbotron {
+  background-image: asset-url('cover_image.png');
+  background-size: cover;
+  height: 300px;
+  margin-top: 5rem; // Until NAVBAR css gets updated and fixed
+}
+
+.jumbotron h1, h2 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+#logo {
+  float: left;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+  
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
+}

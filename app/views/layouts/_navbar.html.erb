@@ -1,0 +1,24 @@
+<nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-success">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <%= link_to "Chefit", root_path, class: "navbar-brand", id: "logo" %>
+  
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Receipes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Ingredients</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Chefs</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>

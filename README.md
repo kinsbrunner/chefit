@@ -1,6 +1,6 @@
 # Minimum Viable Product - CHEFIT!
 
-The agreed scope forthe MVP is:
+The agreed scope for the MVP is:
 
 * Basic homepage
 * Chef administration
