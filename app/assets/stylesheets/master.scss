@@ -1,5 +1,9 @@
 @import "bootstrap";
 
+.container {
+  padding-top: 5rem;
+}
+
 .center {
   text-align: center;
 }
@@ -8,7 +12,6 @@
   background-image: asset-url('cover_image.png');
   background-size: cover;
   height: 300px;
-  margin-top: 5rem;
 }
 
 .jumbotron h1 {
@@ -70,4 +73,30 @@ footer ul li {
 #logo:hover {
   color: #fff;
   text-decoration: none;
+}
+
+.well {
+  -moz-box-shadow:    .25px .25px .25px 2px #5cb85c;
+  -webkit-box-shadow: .25px .25px .25px 2px #5cb85c;
+  box-shadow:         .25px .25px .25px 2px #5cb85c;
+  background: #f0edf2;
+  margin-bottom: 2rem;
+  padding: 1rem;  
+}
+
+.description {
+  margin-top: 0;
+}
+
+.well a {
+  color: #5cb85c;
+}
+
+.chef_info {
+  margin-top: 10px;
+}
+
+.help-block {
+  color: #ff0000;
+  font-size: .8rem;
 }
