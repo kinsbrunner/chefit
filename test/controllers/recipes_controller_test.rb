@@ -31,8 +31,7 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     get new_recipe_path
     assert_template 'recipes/new'
     name_of_recipe = 'Spaghetti with tomatoe sauce'
-    description_of_recipe = 'boil water, add pasta, warm up sauce and serve 
-                             with melted cheese'
+    description_of_recipe = 'boil water, add pasta, warm up sauce and serve with melted cheese'
     assert_difference 'Recipe.count', 1 do
       post recipes_path, params: { recipe: { name: name_of_recipe, description: description_of_recipe } }
     end
