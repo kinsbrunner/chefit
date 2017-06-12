@@ -25,6 +25,8 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     assert_match @recipe1.name, response.body
     assert_match @recipe1.description, response.body
     assert_match @chef.chefname, response.body
+    assert_select "a[href=?]", edit_recipe_path(@recipe1), text: 'Edit Recipe'
+    assert_select "a[href=?]", recipe_path(@recipe1), text: 'Delete Recipe'
   end
   
   test "should create new valid recipe" do
@@ -37,7 +39,7 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_match name_of_recipe.capitalize, response.body
-    #assert_match description_of_recipe, response.body
+    assert_match description_of_recipe, response.body
   end
   
   test "should reject invalid recipe submissions" do
@@ -50,5 +52,42 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'div.alert-danger'
     assert_select 'div.has-error'
     assert_select 'span.help-block'
+  end
+  
+  test "should reject invalid recipe update" do
+    get edit_recipe_path(@recipe1)
+    assert_template 'recipes/edit'
+    patch recipe_path(@recipe1), params: { recipe: { name: '', description: 'some description' } }
+    assert_template 'recipes/edit'
+    assert_select 'div.alert-danger'
+    assert_select 'div.has-error'
+    assert_select 'span.help-block'
+    
+  end
+  
+  test "should succesfully edit a recipe" do
+    get edit_recipe_path(@recipe1)
+    assert_template 'recipes/edit'
+    updated_name = 'updated recipe name'
+    updated_description = 'updated recipe description'
+    patch recipe_path(@recipe1), params: { recipe: { name: updated_name, description: updated_description } }
+    assert_redirected_to @recipe1
+    #follow_redirect!
+    assert_not flash.empty?
+    @recipe1.reload
+    assert_match updated_name, @recipe1.name
+    assert_match updated_description, @recipe1.description
+  end
+  
+  test "should succesfully delete a recipes" do
+    get recipe_path(@recipe1)
+    assert_template 'recipes/show'
+    assert_select "a[href=?]", recipe_path(@recipe1), text: 'Delete Recipe'
+    assert_difference "Recipe.count", -1 do
+      delete recipe_path(@recipe1)
+    end
+    assert_redirected_to recipes_path
+    assert_not flash.empty?
+   
   end
 end
