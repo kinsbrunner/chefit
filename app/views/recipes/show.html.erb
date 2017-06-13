@@ -14,5 +14,6 @@
     <%= link_to 'Delete Recipe', recipe_path(@recipe), method: :delete, 
                                                        data: { confirm: 'Are you sure you want to delete this recipe?' },
                                                        class: 'btn btn-sm btn-danger' %>
+    <%= link_to 'Return to Recipes list', recipes_path, class: 'btn btn-sm btn-primary' %>
   </div>
 </div>
