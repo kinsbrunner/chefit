@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RecipesControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @chef = Chef.create(chefname: 'Alejandro', email: 'alejandro@example.com')
+    @chef = Chef.create(chefname: 'Alejandro', email: 'alejandro@example.com', password: 'topsecret')
     @recipe1 = @chef.recipes.create(name: 'Pasta', description: 'The best italian pasta!')
     @recipe2 = @chef.recipes.create(name: 'Barbecue', description: 'The real argentinian receipe!')
   end
@@ -89,6 +89,5 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to recipes_path
     assert_not flash.empty?
-   
   end
 end

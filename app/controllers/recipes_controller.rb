@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :current_recipe, only: [edit, show, update, destroy]
+  before_action :current_recipe, only: [:edit, :show, :update, :destroy]
   
   def index
     @recipes = Recipe.all
@@ -19,7 +19,7 @@ class RecipesController < ApplicationController
       flash[:success] = "Recipe was created successfully!"
       redirect_to recipe_path(@recipe)
     else
-      render 'new'
+      render :new
     end
   end
   
@@ -31,7 +31,7 @@ class RecipesController < ApplicationController
       flash[:success] = "Recipe was created successfully!"
       redirect_to recipe_path(@recipe)
     else
-      render 'edit'
+      render :edit
     end
   end
   

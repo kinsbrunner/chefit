@@ -1,0 +1,22 @@
+<%= render 'shared/page_title', title: "Sign up for the application" %>
+
+<%= render 'shared/errors', obj: @chef %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= simple_form_for @chef, html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f| %>
+      <%= f.input :chefname, label: 'Chef Name', placeholder: 'Enter your name', autofocus: true, label_html: { class: 'col-md-2 col-form-label' }, input_html: { class: 'col-md-10 form-control' }, wrapper_html: { class: 'row' } %>
+      <%= f.input :email, placeholder: 'Enter your email', label_html: { class: 'col-md-2 col-form-label' }, input_html: { class: 'col-md-10 form-control' }, wrapper_html: { class: 'row' } %>
+      <%= f.input :password, placeholder: 'Enter your password', label_html: { class: 'col-md-2 col-form-label' }, input_html: { class: 'col-md-10 form-control' }, wrapper_html: { class: 'row' } %>
+      <%= f.input :password_confirmation, label: 'Confirm password', required: true, placeholder: 'Re-enter your password', label_html: { class: 'col-md-2 col-form-label' }, input_html: { class: 'col-md-10 form-control' }, wrapper_html: { class: 'row' } %>
+      
+      <div class="form-group row">
+        <div class="offset-md-2 col-md-8">
+          <%= f.button :submit, 'Create my account', class: 'btn btn-success mr-4' %>
+          [ <%= link_to 'Cancel signup and return to recipes listing', recipes_path %> ]
+        </div>
+      </div>
+      
+    <% end %>  
+  </div>
+</div>
