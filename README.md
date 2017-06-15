@@ -10,3 +10,6 @@ The agreed scope for the MVP is:
 * User management & user profile
 * Chatroom
 * Search feature
+
+Additional comments:
+* Image profile is based on Gravatar's profiles so it will be linked through Chef's email

@@ -14,6 +14,7 @@ class ChefsController < ApplicationController
   end
   
   def show
+    @chef = Chef.find_by_id(params[:id])
   end
   
   private
