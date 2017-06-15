@@ -45,4 +45,26 @@ class ChefsControllerTest < ActionDispatch::IntegrationTest
     assert_match @recipe2.description, response.body
     assert_match @chef.chefname, response.body
   end
+  
+  test "should reject an invalid chef edit" do
+    get edit_chef_path(@chef)
+    assert_template 'chefs/edit'
+    patch chef_path(@chef), params: { chef: { chefname: '', email: 'alejandro@example.com' } }
+    assert_template 'chefs/edit'
+    assert_select 'div.alert-danger'
+    assert_select 'div.has-error'
+    assert_select 'span.help-block'
+  end
+  
+  test "should accept valid chef edit" do
+    get edit_chef_path(@chef)
+    assert_template 'chefs/edit'
+    patch chef_path(@chef), params: { chef: { chefname: 'Daniel', email: 'daniel@example.com' } }
+    assert_redirected_to @chef
+    #assert_template 'chefs/show'
+    assert_not flash.empty?
+    @chef.reload
+    assert_match 'Daniel', @chef.chefname
+    assert_match 'daniel@example.com', @chef.email
+  end
 end

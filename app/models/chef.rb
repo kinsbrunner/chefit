@@ -7,7 +7,7 @@ class Chef < ApplicationRecord
   validates :email, presence: true, length: { maximum: 50 }, 
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 5 }
+  validates :password, presence: true, length: { minimum: 5 }, allow_nil: true
   
   has_many :recipes
   has_secure_password
