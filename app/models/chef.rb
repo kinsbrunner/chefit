@@ -9,6 +9,6 @@ class Chef < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 5 }, allow_nil: true
   
-  has_many :recipes
+  has_many :recipes, dependent: :destroy
   has_secure_password
 end
