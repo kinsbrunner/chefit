@@ -6,27 +6,40 @@
   
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Recipes
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          
-          <%= link_to 'New recipe', new_recipe_path, class: 'dropdown-item' %>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Ingredients</a>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Chefs', chefs_path, class: 'nav-link' %>
-      </li>
+      <li class="nav-item"><%= link_to 'Chefs', chefs_path, class: 'nav-link' %></li>
+      <li class="nav-item"><%= link_to 'All Recipes', recipes_path, class: 'nav-link' %></li>
+      <li class="nav-item"><%= link_to 'Ingredients', '#', class: 'nav-link' %></li>
+      <% if logged_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Recipes
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to 'New recipe', new_recipe_path, class: 'dropdown-item' %>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      <% end %>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    
+    <ul class="navbar-nav navbar-right">
+      <% if logged_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= current_chef.chefname.split.map(&:capitalize).join(' ') %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to 'My profile', chef_path(current_chef), class: 'dropdown-item' %>
+            <%= link_to 'Edit my profile', edit_chef_path(current_chef), class: 'dropdown-item' %>
+            <%= link_to 'Log out', logout_path, method: :delete, class: 'dropdown-item' %>
+          </div>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Log in', login_path, class: 'nav-link' %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </nav>

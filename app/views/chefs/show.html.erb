@@ -1,4 +1,4 @@
-<%= render 'shared/page_title', title: "Chef #{@chef.chefname}'s profile" %>
+<%= render 'shared/page_title', title: "Chef #{@chef.chefname.split.map(&:capitalize).join(' ')}'s profile" %>
 
 <div class="row">
   <div class="col-md-4 offset-md-4 center">

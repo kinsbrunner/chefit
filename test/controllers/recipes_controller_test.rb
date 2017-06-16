@@ -20,6 +20,7 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should get recipe show" do
+    sign_in_as(@chef, 'topsecret')
     get recipe_path(@recipe1)
     assert_template 'recipes/show'
     assert_match @recipe1.name, response.body
@@ -31,6 +32,7 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should create new valid recipe" do
+    sign_in_as(@chef, 'topsecret')
     get new_recipe_path
     assert_template 'recipes/new'
     name_of_recipe = 'Spaghetti with tomatoe sauce'
@@ -44,6 +46,7 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should reject invalid recipe submissions" do
+    sign_in_as(@chef, 'topsecret')
     get new_recipe_path
     assert_template 'recipes/new'
     assert_no_difference 'Recipe.count' do
@@ -56,6 +59,7 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should reject invalid recipe update" do
+    sign_in_as(@chef, 'topsecret')
     get edit_recipe_path(@recipe1)
     assert_template 'recipes/edit'
     patch recipe_path(@recipe1), params: { recipe: { name: '', description: 'some description' } }
@@ -63,10 +67,10 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'div.alert-danger'
     assert_select 'div.has-error'
     assert_select 'span.help-block'
-    
   end
   
   test "should succesfully edit a recipe" do
+    sign_in_as(@chef, 'topsecret')
     get edit_recipe_path(@recipe1)
     assert_template 'recipes/edit'
     updated_name = 'updated recipe name'
@@ -80,7 +84,8 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     assert_match updated_description, @recipe1.description
   end
   
-  test "should succesfully delete a recipes" do
+  test "should succesfully delete a recipe" do
+    sign_in_as(@chef, 'topsecret')
     get recipe_path(@recipe1)
     assert_template 'recipes/show'
     assert_select "a[href=?]", recipe_path(@recipe1), text: 'Delete Recipe'
