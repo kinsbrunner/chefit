@@ -1,6 +1,5 @@
 class ChefsController < ApplicationController
   before_action :current_chef, only: [:show, :edit, :update, :destroy]
-  #before_action :require_user, except: [:index, :show]
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
