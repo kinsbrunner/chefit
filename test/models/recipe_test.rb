@@ -5,13 +5,14 @@ class RecipeTest < ActiveSupport::TestCase
     @chef = Chef.create!(chefname: 'Alejandro', email: 'alejandro@example.com', password: 'topsecret')
     @recipe = @chef.recipes.build(name: 'Chocolate cake', description: 'Great frozen cake based on cream and chocolate!')
     @ingredient = Ingredient.create(name: 'chocolate cover')
+    @comment = Comment.new(description: 'I love chocolate cakes!', chef_id: @chef.id, recipe_id: nil)
   end
   
   test "recipe should be valid" do
     assert @recipe.valid?
   end
 
-  test "recipe withour chef should be invalid" do
+  test "recipe without chef should be invalid" do
     @recipe.chef_id = nil
     assert_not @recipe.valid?
   end
@@ -48,6 +49,14 @@ class RecipeTest < ActiveSupport::TestCase
     @recipe.save
     @recipe.ingredients << @ingredient
     assert_difference "RecipeIngredient.count", -1 do
+      @recipe.destroy
+    end
+  end
+
+  test "associated comments should be destroyed when deleting a recipe" do
+    @recipe.save
+    @recipe.comments << @comment
+    assert_difference "Comment.count", -1 do
       @recipe.destroy
     end
   end

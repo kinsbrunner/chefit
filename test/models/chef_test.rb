@@ -3,6 +3,9 @@ require 'test_helper'
 class ChefTest < ActiveSupport::TestCase
   def setup
     @chef = Chef.new(chefname: 'Alejandro', email: 'alejandro@example.com', password: 'topsecret')
+    @chef2 = Chef.create(chefname: 'Peter', email: 'peter@example.com', password: 'topsecret')
+    @recipe = @chef2.recipes.create(name: 'Chocolate cake', description: 'Great frozen cake based on cream and chocolate!')
+    @comment = @chef2.comments.create(description: 'I love chocolate cakes!', recipe_id: @recipe.id)
   end
 
   test "chef should be valid" do
@@ -76,4 +79,10 @@ class ChefTest < ActiveSupport::TestCase
       @chef.destroy
     end
   end
+
+  test "associated comments should be destroyed when deleting a chef" do
+    assert_difference "Comment.count", -1 do
+      @chef2.destroy
+    end
+  end  
 end
