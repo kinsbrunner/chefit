@@ -4,6 +4,7 @@ class ChefsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @chef = Chef.create(chefname: 'Alejandro', email: 'alejandro@example.com', password: 'topsecret', password_confirmation: 'topsecret')
     @chef2 = Chef.create(chefname: 'Frank', email: 'frank@example.com', password: 'topsecret', password_confirmation: 'topsecret')
+    @admin_chef = Chef.create(chefname: 'Peter', email: 'peter@example.com', password: 'topsecret', password_confirmation: 'topsecret', admin: true)
     @recipe1 = @chef.recipes.create(name: 'Pasta', description: 'The best italian pasta!')
     @recipe2 = @chef.recipes.create(name: 'Barbecue', description: 'The real argentinian receipe!')
   end
@@ -36,7 +37,7 @@ class ChefsControllerTest < ActionDispatch::IntegrationTest
     assert_template 'chefs/show'
     assert_not flash.empty?
   end
-  
+
   test "should get chef's show" do
     get chef_path(@chef)
     assert_template 'chefs/show'
@@ -48,6 +49,7 @@ class ChefsControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should reject an invalid chef edit" do
+    sign_in_as(@chef, 'topsecret')
     get edit_chef_path(@chef)
     assert_template 'chefs/edit'
     patch chef_path(@chef), params: { chef: { chefname: '', email: 'alejandro@example.com' } }
@@ -58,6 +60,7 @@ class ChefsControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should accept valid chef edit" do
+    sign_in_as(@chef, 'topsecret')
     get edit_chef_path(@chef)
     assert_template 'chefs/edit'
     patch chef_path(@chef), params: { chef: { chefname: 'Daniel', email: 'daniel@example.com' } }
@@ -67,7 +70,31 @@ class ChefsControllerTest < ActionDispatch::IntegrationTest
     assert_match 'Daniel', @chef.chefname
     assert_match 'daniel@example.com', @chef.email
   end
-  
+
+  test "should accept edit attemp by admin user" do
+    sign_in_as(@admin_chef, 'topsecret')
+    get edit_chef_path(@chef)
+    assert_template 'chefs/edit'
+    patch chef_path(@chef), params: { chef: { chefname: 'Daniella', email: 'daniella@example.com' } }
+    assert_redirected_to @chef
+    assert_not flash.empty?
+    @chef.reload
+    assert_match 'Daniella', @chef.chefname
+    assert_match 'daniella@example.com', @chef.email
+  end
+
+  test "should redirect edit attempt by another non-admin user" do
+    sign_in_as(@chef2, 'topsecret')
+    updated_name = 'Joe'
+    updated_email = 'jow@example.com'
+    patch chef_path(@chef), params: { chef: { chefname: updated_name, email: updated_email } }
+    assert_redirected_to chefs_path
+    assert_not flash.empty?
+    @chef.reload
+    assert_match 'Alejandro', @chef.chefname
+    assert_match 'alejandro@example.com', @chef.email
+  end
+ 
   test "should get chefs index" do
     get chefs_path
     assert_response :success
@@ -81,6 +108,7 @@ class ChefsControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should succesfully delete a chef" do
+    sign_in_as(@admin_chef, 'topsecret')
     get chefs_path
     assert_template 'chefs/index'
     assert_select "a[href=?]", chef_path(@chef2), text: 'Delete Chef'
