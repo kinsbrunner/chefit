@@ -4,6 +4,7 @@ class RecipeTest < ActiveSupport::TestCase
   def setup
     @chef = Chef.create!(chefname: 'Alejandro', email: 'alejandro@example.com', password: 'topsecret')
     @recipe = @chef.recipes.build(name: 'Chocolate cake', description: 'Great frozen cake based on cream and chocolate!')
+    @ingredient = Ingredient.create(name: 'chocolate cover')
   end
   
   test "recipe should be valid" do
@@ -33,5 +34,21 @@ class RecipeTest < ActiveSupport::TestCase
   test "description shouldn't be more than 500 characters" do
     @recipe.description = "a" * 501
     assert_not @recipe.valid? 
+  end
+  
+  test "associated ingredients shouldn't be destroyed when deleting recipe" do
+    @recipe.save
+    @recipe.ingredients << @ingredient
+    assert_no_difference 'Ingredient.count' do
+      @recipe.destroy
+    end
+  end
+  
+  test "associated recipe-ingredients should be destroyed when deleting recipe" do
+    @recipe.save
+    @recipe.ingredients << @ingredient
+    assert_difference "RecipeIngredient.count", -1 do
+      @recipe.destroy
+    end
   end
 end

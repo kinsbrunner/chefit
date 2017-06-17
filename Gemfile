@@ -66,3 +66,5 @@ end
 gem 'simple_form'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap4'
+gem 'hirb'
+gem 'hirb-unicode'
