@@ -4,7 +4,7 @@
   <%= will_paginate %>
   <% @chefs.each do |chef|  %>
     <ul class="listing">
-      <div class="row">
+      <div class="row row-centered">
         <div class="well col-md-4 offfset-md-4">
           <li><%= link_to gravatar_for(chef), chef_path(chef) %></li>
           <li class="chef-title"><%= link_to chef.chefname.split.map(&:capitalize).join(' '), chef_path(chef) %></li>
