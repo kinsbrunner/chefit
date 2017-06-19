@@ -17,4 +17,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  def require_admin
+    if !logged_in? || (logged_in? && !current_chef.admin?)
+      flash[:danger] = "Only admin users can perform this action"
+      redirect_to root_path
+    end
+  end
 end

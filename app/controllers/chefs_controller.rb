@@ -62,11 +62,11 @@ class ChefsController < ApplicationController
       redirect_to chefs_path
     end
   end
-  
-  def require_admin
-    if logged_in? && !current_chef.admin?
-      flash[:danger] = "Only admin users can perform that action"
-      redirect_to root_path
-    end
-  end
+
+  #def require_admin
+  #  if logged_in? && !current_chef.admin?
+  #    flash[:danger] = "Only admin users can perform this action"
+  #    redirect_to root_path
+  #  end
+  #end
 end

@@ -1,0 +1,14 @@
+<%= render 'shared/page_title', title: @ingredient.name %>
+
+<% if @recipes_with_ingredient.count != 0 %>
+  <h4 class="center my-4">Recipes containing <%= @ingredient.name.split.map(&:capitalize).join(' ') %></h4>
+  <div class="center">
+    <%= will_paginate @recipes_with_ingredient %>
+  </div>
+  <%= render 'recipes/recipe', obj: @recipes_with_ingredient %>
+  <div class="center">
+    <%= will_paginate @recipes_with_ingredient %>
+  </div>
+<% else %>
+  <h4 class="center my-4">No recipes contain this ingredient</h4>
+<% end %>

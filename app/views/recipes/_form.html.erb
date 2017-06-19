@@ -5,8 +5,16 @@
     <%= simple_form_for @recipe, html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f| %>
       <%= f.input :name, placeholder: 'Name of recipe', autofocus: true, label_html: { class: 'col-md-2 col-form-label' }, input_html: { class: 'col-md-10 form-control' }, wrapper_html: { class: 'row' } %>
       <%= f.input :description, placeholder: 'Enter steps to create recipe', label_html: { class: 'col-md-2 col-form-label' }, input_html: { class: 'col-md-10 form-control', rows: 10 }, wrapper_html: { class: 'row' } %>
-      
-      <div class="form-group row">
+
+      <div class="row form-group">
+        <div class="col-md-8 offset-md-2">
+          <%= f.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name do |cb| %>
+            <%= cb.label(class: 'checkbox-inline input_checkbox mr-3') {cb.check_box(class: 'checkbox mr-1') + cb.text.capitalize} %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row form-group">
         <div class="offset-md-2 col-md-8">
           <%= f.button :submit, class: 'btn btn-success mr-4' %>
           [ <%= link_to 'Cancel request and return to recipes listing', recipes_path %> ]

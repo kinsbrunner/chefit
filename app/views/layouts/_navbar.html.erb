@@ -8,7 +8,21 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><%= link_to 'Chefs', chefs_path, class: 'nav-link' %></li>
       <li class="nav-item"><%= link_to 'All Recipes', recipes_path, class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to 'Ingredients', '#', class: 'nav-link' %></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ingredients
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <%= link_to 'All Ingredients', ingredients_path, class: 'dropdown-item' %>
+          <% Ingredient.all.each do |ingredient| %>
+            <%= link_to ingredient.name.capitalize, ingredient_path(ingredient), class: 'dropdown-item' %>
+          <% end %>
+          <% if logged_in? && current_chef.admin? %>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'New ingredient', new_ingredient_path, class: 'dropdown-item' %>
+          <% end %>
+        </div>
+      </li>
       <% if logged_in? %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,6 +46,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <%= link_to 'My profile', chef_path(current_chef), class: 'dropdown-item' %>
             <%= link_to 'Edit my profile', edit_chef_path(current_chef), class: 'dropdown-item' %>
+            <div class="dropdown-divider"></div>
             <%= link_to 'Log out', logout_path, method: :delete, class: 'dropdown-item' %>
           </div>
         </li>
