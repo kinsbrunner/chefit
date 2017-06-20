@@ -1,0 +1,15 @@
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h3>Comments:</h3>
+      <hr />
+      <%= simple_form_for [recipe, comment], html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f| %>
+        <%= f.input :description, label: false, placeholder: 'Enter your comment', input_html: { class: 'col-md-12 form-control', rows: 6 }, wrapper_html: { class: 'row' } %>
+        <div class="row form-group">
+          <div class="col-md-12">
+            <%= f.button :submit, 'Post Comment', class: 'btn btn-success mr-4' %>
+          </div>
+        </div>
+      <% end %>
+      <hr />
+    </div>
+  </div>

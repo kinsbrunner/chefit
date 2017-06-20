@@ -22,3 +22,24 @@
     <%= link_to 'Return to Recipes list', recipes_path, class: 'btn btn-sm btn-primary' %>
   </div>
 </div>
+
+<% if logged_in? %>
+  <%= render 'comments/form', recipe: @recipe, comment: @comment %>
+<% end %>
+
+<% if @recipe.comments.count != 0 %>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h3>Previous comments:</h3>
+      <div id="messages">
+        <%= render partial: 'comments/comments', object: @comments %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h3>No comments yet!</h3>
+    </div>
+  </div>
+<% end %>

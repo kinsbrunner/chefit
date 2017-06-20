@@ -5,6 +5,8 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     @chef = Chef.create(chefname: 'Alejandro', email: 'alejandro@example.com', password: 'topsecret')
     @recipe1 = @chef.recipes.create(name: 'Pasta', description: 'The best italian pasta!')
     @recipe2 = @chef.recipes.create(name: 'Barbecue', description: 'The real argentinian receipe!')
+    @comment = @recipe1.comments.create(description: 'This is the best pasta ever!', chef_id: @chef.id)
+    @comment_new = Comment.new
   end
   
   test "should get recipes index" do
@@ -23,9 +25,13 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@chef, 'topsecret')
     get recipe_path(@recipe1)
     assert_template 'recipes/show'
+    assert_template 'comments/_comments'
+    assert_template 'comments/_form'
     assert_match @recipe1.name, response.body
     assert_match @recipe1.description, response.body
     assert_match @chef.chefname, response.body
+    assert_match @comment.description, response.body
+    assert_match 'Post Comment', response.body
     assert_select "a[href=?]", edit_recipe_path(@recipe1), text: 'Edit Recipe'
     assert_select "a[href=?]", recipe_path(@recipe1), text: 'Delete Recipe'
     assert_select "a[href=?]", recipes_path, text: 'Return to Recipes list'
