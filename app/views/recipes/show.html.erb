@@ -31,8 +31,10 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <h3>Previous comments:</h3>
-      <div id="messages">
-        <%= render partial: 'comments/comments', object: @comments %>
+      <div id="comments"> 
+        <div id="messages">
+          <%= render partial: 'comments/comments', object: @comments %>
+        </div>
       </div>
     </div>
   </div>

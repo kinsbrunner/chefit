@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   
   resources :ingredients, except: [:destroys]
+  
+  mount ActionCable.server => '/cable'
 end
