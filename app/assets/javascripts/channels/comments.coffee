@@ -7,4 +7,5 @@ App.comments = App.cable.subscriptions.create "CommentsChannel",
 
   received: (data) ->
     $("#messages").prepend(data)
+    $("#no_comments").hide()
     # Called when there's incoming data on the websocket for this channel

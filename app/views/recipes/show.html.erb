@@ -27,21 +27,15 @@
   <%= render 'comments/form', recipe: @recipe, comment: @comment %>
 <% end %>
 
-<% if @recipe.comments.count != 0 %>
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div id="messages">
       <h3>Previous comments:</h3>
-      <div id="comments"> 
-        <div id="messages">
-          <%= render partial: 'comments/comments', object: @comments %>
-        </div>
-      </div>
+      <% if @recipe.comments.count != 0 %>
+        <%= render partial: 'comments/comments', object: @comments %>
+      <% else %>
+        <h3 id="no_comments">No comments yet!</h3>        
+      <% end %>
     </div>
   </div>
-<% else %>
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <h3>No comments yet!</h3>
-    </div>
-  </div>
-<% end %>
+</div>
