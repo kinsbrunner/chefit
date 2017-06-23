@@ -84,5 +84,13 @@ class ChefTest < ActiveSupport::TestCase
     assert_difference "Comment.count", -1 do
       @chef2.destroy
     end
-  end  
+  end
+
+  test "associated messages should be destroyed" do
+    @chef.save
+    @chef.messages.create(content: 'This is the message to be deleted')
+    assert_difference 'Message.count', -1 do
+      @chef.destroy
+    end
+  end
 end

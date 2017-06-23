@@ -14,8 +14,8 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_difference 'Comment.count', 1 do
       post recipe_comments_path(@recipe), params: { comment: { description: comment_description } }
     end
-    follow_redirect!
-    assert_not flash.empty?
+    #follow_redirect!         # Removed as I introduced ActionCable
+    #assert_not flash.empty?  # Removed as I introduced ActionCable
     assert_match comment_description, response.body
   end
     

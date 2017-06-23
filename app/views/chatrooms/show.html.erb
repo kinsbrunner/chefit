@@ -1,0 +1,16 @@
+<%= render 'shared/page_title', title: "ChefChat" %>
+
+<div class="row chat-container">
+  <div class="col-md-8 mx-auto">
+    <div class="messages" id="messages">
+      <%= render @messages %>
+    </div>
+    <hr />
+    <div class="message-container">
+      <%= simple_form_for @message, remote: true do |f| %>
+        <%= f.input :content, label: false, placeholder: 'Enter your message', autofocus: true, input_html: { data: { behavior: 'room_speaker' }, class: 'form-control' } %>
+        <%= f.button :submit, 'Send', class: 'btn btn-success', data: { send: 'message' } %>
+      <% end %>
+    </div>
+  </div>
+</div>
