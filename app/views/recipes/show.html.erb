@@ -20,6 +20,16 @@
                                                          class: 'btn btn-sm btn-danger' %>
     <% end %>
     <%= link_to 'Return to Recipes list', recipes_path, class: 'btn btn-sm btn-primary' %>
+    <div class="liking float-right mr-2">
+      <%= link_to like_recipe_path(@recipe, like: true), method: :post, class: 'mr-2' do %>
+        <%= fa_icon "thumbs-o-up" %>
+      <% end %> 
+      <%= @recipe.thumbs_up_total %> ||
+      <%= link_to like_recipe_path(@recipe, like: false), method: :post, class: 'ml-2' do %>
+        <%= fa_icon "thumbs-o-down" %>
+      <% end %>
+      <%= @recipe.thumbs_down_total %>
+    </div>
   </div>
 </div>
 

@@ -6,6 +6,7 @@ class ChefTest < ActiveSupport::TestCase
     @chef2 = Chef.create(chefname: 'Peter', email: 'peter@example.com', password: 'topsecret')
     @recipe = @chef2.recipes.create(name: 'Chocolate cake', description: 'Great frozen cake based on cream and chocolate!')
     @comment = @chef2.comments.create(description: 'I love chocolate cakes!', recipe_id: @recipe.id)
+    @like = @recipe.likes.create(like: true, chef_id: @chef2.id)
   end
 
   test "chef should be valid" do
@@ -91,6 +92,12 @@ class ChefTest < ActiveSupport::TestCase
     @chef.messages.create(content: 'This is the message to be deleted')
     assert_difference 'Message.count', -1 do
       @chef.destroy
+    end
+  end
+  
+  test "associated likes should be destroyed when deleting a chef" do
+    assert_difference "Like.count", -1 do
+      @chef2.destroy
     end
   end
 end

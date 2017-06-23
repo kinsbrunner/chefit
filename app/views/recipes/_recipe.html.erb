@@ -19,14 +19,24 @@
           </small>
         </span>
       </p>
-      <% if logged_in? && (current_chef == recipe.chef || current_chef.admin?) %>
-        <div class="recipe-actions">
+      <div class="recipe-actions">
+        <% if logged_in? && (current_chef == recipe.chef || current_chef.admin?) %>
           <%= link_to 'Edit Recipe', edit_recipe_path(recipe), class: 'btn btn-sm btn-warning' %>
           <%= link_to 'Delete Recipe', recipe_path(recipe), method: :delete, 
                                                              data: { confirm: 'Are you sure you want to delete this recipe?' },
                                                              class: 'btn btn-sm btn-danger' %>
+        <% end %>
+        <div class="liking float-right mr-2">
+          <%= link_to like_recipe_path(recipe, like: true), method: :post, class: 'mr-2' do %>
+            <%= fa_icon "thumbs-o-up" %>
+          <% end %> 
+          <%= recipe.thumbs_up_total %> ||
+          <%= link_to like_recipe_path(recipe, like: false), method: :post, class: 'ml-2' do %>
+            <%= fa_icon "thumbs-o-down" %>
+          <% end %>
+          <%= recipe.thumbs_down_total %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
 <% end %>

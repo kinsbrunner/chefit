@@ -6,6 +6,7 @@ class RecipeTest < ActiveSupport::TestCase
     @recipe = @chef.recipes.build(name: 'Chocolate cake', description: 'Great frozen cake based on cream and chocolate!')
     @ingredient = Ingredient.create(name: 'chocolate cover')
     @comment = Comment.new(description: 'I love chocolate cakes!', chef_id: @chef.id, recipe_id: nil)
+    @like = Like.new(like: true, chef_id: @chef.id, recipe_id: nil)
   end
   
   test "recipe should be valid" do
@@ -57,6 +58,14 @@ class RecipeTest < ActiveSupport::TestCase
     @recipe.save
     @recipe.comments << @comment
     assert_difference "Comment.count", -1 do
+      @recipe.destroy
+    end
+  end
+
+  test "associated likes should be destroyed when deleting a recipe" do
+    @recipe.save
+    @recipe.likes << @like
+    assert_difference "Like.count", -1 do
       @recipe.destroy
     end
   end
