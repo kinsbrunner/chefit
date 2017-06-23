@@ -25,16 +25,7 @@
       </li>
       <% if logged_in? %>
         <li class="nav-item"><%= link_to 'ChefChat', chat_path, class: 'nav-link' %></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Recipes
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <%= link_to 'New recipe', new_recipe_path, class: 'dropdown-item' %>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
+        <li class="nav-item"><%= link_to 'New recipe', new_recipe_path, class: 'nav-link' %></li>
       <% end %>
     </ul>
     
